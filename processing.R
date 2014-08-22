@@ -3,6 +3,19 @@
 ## Processing of the memory performance data
 main.memory <- read.csv('data_for_final/Reward_recognition_combined.csv')
 
+### Age
+
+Code <- as.character(main.memory$Name)
+Code <- strsplit(Code, split='_')
+Year <- matrix(0,length(Code),1)
+for (i in 1:length(Code)) {
+        Year[i] <- as.numeric(Code[[i]][[2]])
+}
+Age <- 113-Year
+main.memory <- cbind(main.memory[ ,1:2],Age,main.memory[ ,3:ncol(main.memory)])
+
+remove(Age, Year, Code)
+
 ### sum & hit rates
 main.memory$low_stimuli <- (main.memory$R1_low + main.memory$R2_low + main.memory$F3_low + main.memory$F4_low)
 main.memory$high_stimuli <- (main.memory$R1_high + main.memory$R2_high + main.memory$F3_high + main.memory$F4_high)
@@ -31,7 +44,7 @@ main.memory$dprime_unsure_high <- qnorm(main.memory$hit_unsure_high) - qnorm(mai
 
 ### creating subsets in long format
 
-sub.performance <- main.memory[c('Scan', 'Gender', 'Group', 'hit_sure_low', 'hit_sure_high', 'hit_unsure_low', 'hit_unsure_high', 'fa_sure', 'fa_unsure', 'dprime_sure_low', 'dprime_sure_high', 'dprime_unsure_low', 'dprime_unsure_high')] 
+sub.performance <- main.memory[c('Scan', 'Age', 'Gender', 'Group', 'hit_sure_low', 'hit_sure_high', 'hit_unsure_low', 'hit_unsure_high', 'fa_sure', 'fa_unsure', 'dprime_sure_low', 'dprime_sure_high', 'dprime_unsure_low', 'dprime_unsure_high')] 
 
 sub.performance.long <- reshape(sub.performance, direction='long', idvar='Scan', varying=list(c('hit_sure_low', 'hit_sure_high'),c('hit_unsure_low', 'hit_unsure_high'),c('dprime_sure_low', 'dprime_sure_high'),c('dprime_unsure_low', 'dprime_unsure_high')), v.names=c('hit_sure','hit_unsure','dprime_sure','dprime_unsure'),timevar='Condition', times=c('low','high'))
 sub.performance.long$Condition <- as.factor(sub.performance.long$Condition)
