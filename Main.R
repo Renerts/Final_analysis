@@ -95,3 +95,14 @@ stargazer(ez.dprime.sure, type='text', summary=F)
 
 ## Reaction times
 
+## Correlational analyses
+library(Hmisc)
+
+rcorr(hc_func_roi[, 1], main.memory$dprime_sure_low)
+rcorr(hc_func_roi[, 2], main.memory$dprime_sure_high) #significant
+
+rcorr(putamen_func_roi[, 1], main.memory$dprime_sure_low)
+rcorr(putamen_func_roi[, 2], main.memory$dprime_sure_high)
+
+rcorr(hc_anat_roi[, 1], main.memory$dprime_sure_low)
+rcorr(hc_anat_roi[, 2], main.memory$dprime_sure_high)

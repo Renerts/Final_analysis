@@ -53,14 +53,25 @@ sub.performance.long$Condition <- as.factor(sub.performance.long$Condition)
 
 main.accuracy.A <- read.csv('data_for_final/accuracy_A_study.csv')
 
-### single correct cue responses
+### single correct cue responses(unfinished)
 
 main.accuracy.A$sc_cue_stimuli <- (main.accuracy.A$sc_cue_15+main.accuracy.A$sc_cue_50l+main.accuracy.A$sc_cue_50h+main.accuracy.A$sc_cue_100)       
 main.accuracy.A$cue_stimuli <- (main.accuracy.A$sc_cue_stimuli+(main.accuracy.A$sw_cue_15+main.accuracy.A$sw_cue_50l+main.accuracy.A$sw_cue_50h+main.accuracy.A$sw_cue_100))
 
-### single correct word stimuli responses
+main.accuracy.A$tot_15_stimuli <- (main.accuracy.A$sc_cue_15 + main.accuracy.A$sw_cue_15)
+main.accuracy.A$tot_50l_stimuli <- (main.accuracy.A$sc_cue_50l + main.accuracy.A$sw_cue_50l)
+main.accuracy.A$tot_50h_stimuli <- (main.accuracy.A$sc_cue_50h + main.accuracy.A$sw_cue_50h)
+main.accuracy.A$tot_100_stimuli <- (main.accuracy.A$sc_cue_100 + main.accuracy.A$sw_cue_100)
 
-main.accuracy.A$sc_
+main.accuracy.A$acc_dc_15 <- (main.accuracy.A$dc_liv_stim_15+main.accuracy.A$dc_non_stim_15)/main.accuracy.A$tot_15_stimuli
+main.accuracy.A$acc_dc_50l <- (main.accuracy.A$dc_liv_stim_50l+main.accuracy.A$dc_non_stim_50l)/main.accuracy.A$tot_50l_stimuli
+main.accuracy.A$acc_dc_50h <- (main.accuracy.A$dc_liv_stim_50h+main.accuracy.A$dc_non_stim_50h)/main.accuracy.A$tot_50h_stimuli
+main.accuracy.A$acc_dc_100 <- (main.accuracy.A$dc_liv_stim_100+main.accuracy.A$dc_non_stim_100)/main.accuracy.A$tot_100_stimuli
+
+### single correct word stimuli responses(unfinished)
+
+### double correct responses
+
 ## Processing of the reaction times
 
 ### A study
@@ -69,4 +80,9 @@ main.rt.A <- read.csv('data_for_final/Reaction_times_A_study.csv')
 ### B study
 main.rt.B <- read.csv('data_for_final/Reaction_times_B_study.csv')
 
+### The ROI analyses
 
+hc_func_roi <- read.csv('data_for_final/hc_func_roi.csv', header=F)
+putamen_func_roi <- read.csv('data_for_final/putamen_func_roi.csv', header=F)
+hc_anat_roi_70 <- read.csv('data_for_final/hc_phc_70.csv', header=F)
+hc_anat_roi_50 <- read.csv('data_for_final/hc_phc_50.csv', header=F)
