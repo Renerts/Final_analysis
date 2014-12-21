@@ -1,6 +1,7 @@
 # This script is for producing visual output for the 'Sleep Study'. The data it uses variables from the global environment created in the 'processing' script. 
 
-plot.dir <- "C:/Users/Renerts/Documents/Sleep_study/Paper/tables_graphs"
+plot.dir <- "/home/the_renerts/Documents/Science/Vilnius_konference" #"C:/Users/Renerts/Documents/Sleep_study/Paper/tables_graphs"
+
 
 ## Function definitions
 
@@ -84,4 +85,14 @@ arrows(dprime.barplot, dprime.plot$StErr.right, dprime.barplot,dprime.plot$StErr
 legend("topleft", legend=c('Sleep group','Wake group'), fill=c('darkgray', 'lightgray'),bty='n',cex=1.2)
 lines(dprime.barplot[c(3,4), ], rep(1.6,2))
 text(mean(dprime.barplot[c(3,4), ]), 1.65, labels='*', cex=1.5)
+dev.off()
+
+png(filename=file.path(plot.dir,'meanROI_dprime.png'),width=500, height=450, pointsize = 16)
+plot(hc_func_roi[, 2]~main.memory$dprime_sure_high, #correlation between dprime and functional ROI
+     xlab=paste("Memory performance (", "d","')", sep=""),
+     ylab='Mean ROI value',
+     main='Memory performance and mean ROI values \n in high reward context'
+     
+     )
+abline(lm(hc_func_roi[, 2]~main.memory$dprime_sure_high))
 dev.off()

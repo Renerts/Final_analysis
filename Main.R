@@ -2,7 +2,8 @@
 
 ## This script has several parts. The 'Main' script is for the statistical tests and analyses. It sources the 'processing' script, which creates all the necessary variables and data frames. 'Graphs' is used to create visual materials from the data. 
 
-setwd("C:/Users/Renerts/Documents/Sleep_study/Final_analysis")
+###setwd("C:/Users/Renerts/Documents/Sleep_study/Final_analysis")
+###setwd("/home/the_renerts/Documents/Science/fmri/Final_analysis")
 source('processing.R')
 
 ## Demographics
@@ -15,6 +16,52 @@ table(main.memory$Gender)
 table(main.memory$Group)
 
 ## Memory performance
+
+### testing for normality
+
+qqnorm(main.memory$dprime_sure_high) #reward context=high, group=both
+qqline(main.memory$dprime_sure_high)
+shapiro.test(main.memory$dprime_sure_high)
+
+qqnorm(main.memory$dprime_sure_low)  #reward context=low, group=both
+qqline(main.memory$dprime_sure_low)
+shapiro.test(main.memory$dprime_sure_low)
+
+qqnorm(main.memory$dprime_sure_high[main.memory$Group=="w"])  #reward context=high, group=wake
+qqline(main.memory$dprime_sure_high[main.memory$Group=="w"])
+shapiro.test(main.memory$dprime_sure_high[main.memory$Group=="w"])
+
+qqnorm(main.memory$dprime_sure_low[main.memory$Group=="w"])  #reward context=low, group=wake
+qqline(main.memory$dprime_sure_low[main.memory$Group=="w"])
+shapiro.test(main.memory$dprime_sure_low[main.memory$Group=="w"])
+
+qqnorm(main.memory$hit_sure_low) #reward context=high, group=both
+qqline(main.memory$hit_sure_low)
+shapiro.test(main.memory$hit_sure_low)
+
+qqnorm(main.memory$hit_sure_high) #reward context=high, group=both
+qqline(main.memory$hit_sure_high)
+shapiro.test(main.memory$hit_sure_high)
+
+qqnorm(main.memory$fa_sure) #reward context=high, group=both
+qqline(main.memory$fa_sure)
+shapiro.test(main.memory$fa_sure)
+
+
+
+library(nortest)
+ad.test(main.memory$dprime_sure_high)
+ad.test(main.memory$dprime_sure_low)
+ad.test(main.memory$dprime_sure_high[main.memory$Group=="w"])
+ad.test(main.memory$dprime_sure_low[main.memory$Group=="w"])
+
+lillie.test(main.memory$dprime_sure_high)
+lillie.test(main.memory$dprime_sure_low)
+lillie.test(main.memory$dprime_sure_high[main.memory$Group=="w"])
+lillie.test(main.memory$dprime_sure_low[main.memory$Group=="w"])
+
+
+
 
 ### T-tests
 
@@ -96,6 +143,7 @@ stargazer(ez.dprime.sure, type='text', summary=F)
 ## Reaction times
 
 ## Correlational analyses
+#install.packages("Hmisc")
 library(Hmisc)
 
 rcorr(hc_func_roi[, 1], main.memory$dprime_sure_low)
@@ -104,5 +152,5 @@ rcorr(hc_func_roi[, 2], main.memory$dprime_sure_high) #significant
 rcorr(putamen_func_roi[, 1], main.memory$dprime_sure_low)
 rcorr(putamen_func_roi[, 2], main.memory$dprime_sure_high)
 
-rcorr(hc_anat_roi[, 1], main.memory$dprime_sure_low)
-rcorr(hc_anat_roi[, 2], main.memory$dprime_sure_high)
+rcorr(hc_anat_roi_70[, 1], main.memory$dprime_sure_low)
+rcorr(hc_anat_roi_70[, 2], main.memory$dprime_sure_high)

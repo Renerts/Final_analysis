@@ -75,7 +75,7 @@ main.accuracy.A$acc_dc_100 <- (main.accuracy.A$dc_liv_stim_100+main.accuracy.A$d
 ## Processing of the reaction times
 
 ### A study
-main.rt.A <- read.csv('data_for_final/Reaction_times_A_study.csv')
+main.rt.A <- read.csv2('data_for_final/Reaction_times_A_study.csv')
 
 ### B study
 main.rt.B <- read.csv('data_for_final/Reaction_times_B_study.csv')
